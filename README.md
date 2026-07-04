@@ -117,9 +117,8 @@ TerraGAN is trained on a curated subset of the **[WorldStrat](https://github.com
 | Model | PSNR ↑ | SSIM ↑ | LPIPS ↓ | Edge Score | Inference Time |
 |-------|--------|--------|---------|------------|---------------|
 | **TerraGAN (ours)** | **20.79 dB** | **0.6577** | **0.3037** | 0.0145 | ~0.92 sec/tile |
-| SRGAN baseline | TBD | TBD | TBD | — | — |
 
-> Baseline comparison metrics are being computed and tracked in [Issue #3](https://github.com/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution/issues/3).
+> Baseline comparison metrics (SRGAN, ESRGAN) are currently being evaluated and will be added here soon.
 
 ### Visual Comparisons
 
