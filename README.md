@@ -84,30 +84,32 @@ See [`docs/architecture.md`](docs/architecture.md) for the full Mermaid diagram 
 
 ---
 
-## Dataset
+## Dataset & Data Pipeline
 
-TerraGAN is trained on a curated subset of the **[WorldStrat](https://github.com/worldstrat/worldstrat) satellite dataset**.
+TerraGAN is trained on a curated subset of the **[WorldStrat](https://github.com/worldstrat/worldstrat) satellite dataset**. The data preparation pipeline is split into two phases: offline pre-processing (before model creation) and online processing (during training).
 
-**Original dataset:**
-- ~3,000 scene folders, each containing 1 HR image + 16 LR observations
+### 1. Data Pre-Processing Pipeline (Before Model Creation)
 
-**Curation pipeline:**
-1. Convert all images to RGB (3-channel)
-2. Compute pixel-wise similarity scores between each LR frame and the HR reference
-3. Select the **top 4 LR frames** per scene (best similarity score)
-4. Quality filter: remove cloud-covered, noisy, corrupted, and low-quality samples
-5. Result: **~1,800 high-quality HR–4LR pairs**
+| Step | Details |
+|---|---|
+| **Dataset Source** | WorldStrat — diverse terrains: Urban, Agricultural, Forests, Water bodies, Deserts, Mountains |
+| **Raw Sample Structure** | 1 HR image + 16 LR images per geographic location |
+| **RGB Conversion** | All images converted to RGB for consistent 3-channel representation |
+| **Similarity Analysis** | Pixel-wise similarity computed between each LR and corresponding HR image |
+| **LR Selection** | Best 4 out of 16 LR images selected per sample based on similarity scores |
+| **Quality Filtering** | Removed cloud-covered, noisy, corrupted, and poor-quality images |
+| **Dataset Curation** | ~4,000 raw folders → ~1,800 retained high-quality image groups |
+| **Final Output** | Curated HR–4LR pairs split into Train / Validation / Test |
 
-**Preprocessing:**
-- LR: resized to **64×64**, normalised to [-1, 1]
-- HR: resized to **256×256**, normalised to [-1, 1]
+### 2. Data Pipeline (During Model Training)
 
-**Train / Val / Test split (70 / 15 / 15):**
-| Split | Samples |
-|-------|---------|
-| Train | 1,257   |
-| Val   | 269     |
-| Test  | 271     |
+| Step | Details |
+|---|---|
+| **Dataset** | WorldStrat — 1,797 geographic tiles, each with 4 LR + 1 HR image |
+| **Resizing** | LR → 64×64 px, HR → 256×256 px (enforces 4× upscaling factor) |
+| **Channel Stacking** | 4 LR × 3 RGB = 12-channel input tensor, fused in single forward pass |
+| **Normalization** | [0,1] → [-1,1] using mean=0.5, std=0.5 per channel (matches tanh output) |
+| **Dataset Split** | Train: 1,257 (70%) · Val: 269 (15%) · Test: 271 (15%) · Fixed random seed (42) for reproducibility |
 
 ---
 
