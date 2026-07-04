@@ -7,7 +7,7 @@
 [![Status](https://img.shields.io/badge/status-active%20development-brightgreen?style=flat-square)](https://github.com/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution?style=flat-square)](https://github.com/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution/master?style=flat-square)](https://github.com/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution/commits/master)
 [![Lint](https://github.com/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution/actions/workflows/lint.yml/badge.svg)](https://github.com/Prashant822k/Improved-SRGAN-for-multi-image-super-resolution/actions/workflows/lint.yml)
 
 </div>
