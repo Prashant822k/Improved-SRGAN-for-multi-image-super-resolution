@@ -1,0 +1,29 @@
+# Dataset: WorldStrat
+# Default hyperparameters for TerraGAN training
+
+dataset:
+  path: "/content/dataset/SRGAN_FINAL_V1"   # Update to your local path
+  train_ratio: 0.70
+  val_ratio:   0.15
+  seed: 42
+
+training:
+  epochs:          100
+  batch_size:      8
+  lr:              0.0001          # Adam learning rate
+  num_workers:     0
+  checkpoint_path: null            # Set to .pth path to resume
+  checkpoint_dir:  "checkpoints"
+  sample_dir:      "outputs/samples"
+
+loss:
+  w_pixel:       1.0    # L1 pixel loss weight
+  w_perceptual:  0.01   # VGG19 perceptual loss weight
+  w_adversarial: 0.005  # Adversarial (BCE) loss weight
+  w_lpips:       0.01   # LPIPS (AlexNet) loss weight
+
+model:
+  lr_size: 64     # LR input spatial size
+  hr_size: 256    # HR output spatial size
+  n_residual_blocks: 16
+  channels: 64
