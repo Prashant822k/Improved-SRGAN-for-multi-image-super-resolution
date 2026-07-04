@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter / Colab
+.ipynb_checkpoints/
+*.ipynb
+
+# Model checkpoints & weights (too large for git — see checkpoints/README.md)
+checkpoints/*.pth
+checkpoints/*.pt
+checkpoints/*.bin
+*.pth
+*.pt
+
+# Dataset (never commit raw data)
+dataset/
+data/raw/
+*.h5
+*.hdf5
+
+# Output samples (can be large)
+outputs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Lint/format cache
+.flake8
+.mypy_cache/
+.ruff_cache/
