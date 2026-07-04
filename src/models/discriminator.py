@@ -33,12 +33,12 @@ class Discriminator(nn.Module):
     def __init__(self):
         super().__init__()
         self.model = nn.Sequential(
-            _conv_block(3,   64,  stride=1),   # (B, 64,  256, 256)
-            _conv_block(64,  64,  stride=2),   # (B, 64,  128, 128)
-            _conv_block(64,  128, stride=1),   # (B, 128, 128, 128)
-            _conv_block(128, 128, stride=2),   # (B, 128, 64,  64)
-            _conv_block(128, 256, stride=1),   # (B, 256, 64,  64)
-            _conv_block(256, 256, stride=2),   # (B, 256, 32,  32)
+            _conv_block(3, 64, stride=1),  # (B, 64,  256, 256)
+            _conv_block(64, 64, stride=2),  # (B, 64,  128, 128)
+            _conv_block(64, 128, stride=1),  # (B, 128, 128, 128)
+            _conv_block(128, 128, stride=2),  # (B, 128, 64,  64)
+            _conv_block(128, 256, stride=1),  # (B, 256, 64,  64)
+            _conv_block(256, 256, stride=2),  # (B, 256, 32,  32)
             nn.Conv2d(256, 1, kernel_size=3, stride=1, padding=1),  # (B, 1, 32, 32)
         )
 

@@ -10,12 +10,10 @@ Usage:
 """
 
 import argparse
-import os
 
 import lpips
 import numpy as np
 import torch
-from PIL import Image
 from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
 from torch.utils.data import DataLoader
