@@ -40,30 +40,32 @@ TerraGAN addresses these limitations by:
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        TerraGAN Pipeline                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│   [4 LR Frames]  ──→  Concat (12-ch)  ──→  Conv(12→64, 9×9)  │
-│   64×64 each                                       │            │
-│                                              16× ResidualBlock  │
-│                                                    │            │
-│                                            LSK Attention        │
-│                                       (conv3 + conv5 + conv7)  │
-│                                                    │            │
-│                                          PixelShuffle ×2        │
-│                                         (64→128→256 spatial)   │
-│                                                    │            │
-│                                          Conv(64→3, 9×9) + Tanh │
-│                                                    │            │
-│                                          [SR Output 256×256]   │
-│                                                    │            │
-│   ┌────────────────────────────────────────────────┘            │
-│   │                 GAN Training Loop                           │
-│   ├─ Generator Loss = L1 + 0.01×VGG19 + 0.005×Adv + 0.01×LPIPS│
-│   └─ Discriminator Loss = BCE(real=1, fake=0)                   │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph Preprocessing ["Preprocessing Stage"]
+        A(["Input Low Resolution Images"]) --> B["Align Frames"]
+        B --> C["Fuse Frames"]
+        C --> D["Add Reference Features"]
+    end
+
+    D --> E
+
+    subgraph GAN ["GAN Loop"]
+        E["Generator"] --> F["Discriminator"]
+        F --> G["Loss Calculation"]
+        G --> H{"Done Decision?"}
+        H -- No --> E
+    end
+
+    H -- Yes --> I
+
+    subgraph Output ["Output Stage"]
+        I(["Output Super Resolution Image"])
+    end
+
+    style D fill:#00796B,stroke:#004D40,color:#fff
+    style H fill:#FFECB3,stroke:#FFA000
+    style I fill:#C8E6C9,stroke:#388E3C
 ```
 
 See [`docs/architecture.md`](docs/architecture.md) for the full Mermaid diagram and [`docs/methodology.md`](docs/methodology.md) for a complete methodology write-up.

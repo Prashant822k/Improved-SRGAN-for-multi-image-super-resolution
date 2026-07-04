@@ -1,6 +1,84 @@
-# TerraGAN Architecture
+# TerraGAN Architecture Diagrams & Pipeline
 
-## Pipeline Diagram
+This page contains the system flow chart, system use case diagram, and the detailed layer-level model pipeline.
+
+---
+
+## 1. System Flow Chart
+
+This diagram illustrates the overall processing flow from input low-resolution images to the final super-resolved output, including the preprocessing phase and the GAN training loop.
+
+```mermaid
+flowchart TD
+    subgraph Preprocessing ["Preprocessing Stage"]
+        A(["Input Low Resolution Images"]) --> B["Align Frames"]
+        B --> C["Fuse Frames"]
+        C --> D["Add Reference Features"]
+    end
+
+    D --> E
+
+    subgraph GAN ["GAN Loop"]
+        E["Generator"] --> F["Discriminator"]
+        F --> G["Loss Calculation"]
+        G --> H{"Done Decision?"}
+        H -- No --> E
+    end
+
+    H -- Yes --> I
+
+    subgraph Output ["Output Stage"]
+        I(["Output Super Resolution Image"])
+    end
+
+    style D fill:#00796B,stroke:#004D40,color:#fff
+    style H fill:#FFECB3,stroke:#FFA000
+    style I fill:#C8E6C9,stroke:#388E3C
+```
+
+---
+
+## 2. System Use Case Diagram
+
+This diagram displays the interaction flow between the **User** and **Researcher** roles and the core functions of the SRGAN system.
+
+```mermaid
+flowchart LR
+    subgraph Actors ["Users"]
+        U(["User"])
+        R(["Researcher"])
+    end
+
+    subgraph System ["SRGAN System"]
+        LR["Upload LR Images"]
+        Proc["Run SR Processing"]
+        Out["View Super-Resolved Output"]
+        Ref["Upload Reference Image"]
+    end
+
+    U -- "Initiate upload of low-resolution images" --> LR
+    R -- "Initiate upload of reference image" --> Ref
+
+    LR -- "After images uploaded" --> Proc
+    Ref -- "After reference uploaded" --> Proc
+    Proc -- "Processing complete" --> Out
+
+    Out -- "Upload more images (optional)" --> LR
+    Out -- "Upload new reference (optional)" --> Ref
+
+    style U fill:#B2EBF2,stroke:#00ACC1
+    style R fill:#C8E6C9,stroke:#4CAF50
+    style LR fill:#D1C4E9,stroke:#5E35B1
+    style Proc fill:#FFE0B2,stroke:#FB8C00
+    style Out fill:#F8BBD0,stroke:#E91E63
+    style Ref fill:#C8E6C9,stroke:#4CAF50
+```
+
+---
+
+## 3. Layer-Level Model Pipeline
+
+This diagram shows the tensor shapes and layer operations inside the Generator, Discriminator, and Loss functions.
 
 ```mermaid
 flowchart TD
